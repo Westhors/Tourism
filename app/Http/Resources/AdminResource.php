@@ -18,9 +18,7 @@ class AdminResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'superAdmin' => $this->super_admin,
-            'roleId' => $this->role_id ?? null ,
-            'role' => new AdminRoleResource($this->role) ?? null ,
-        ];
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,];
     }
 }
