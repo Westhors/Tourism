@@ -53,57 +53,12 @@ class ContactUsController extends BaseController
     public function store(ContactUsRequest $request)
     {
         try {
-
-            // 🧠 Block random spam content
-            $spamFields = [$request->name, $request->subject, $request->message];
-            foreach ($spamFields as $field) {
-                if (preg_match('/^[A-Za-z0-9]{10,}$/', $field ?? '')) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Spam content detected.'
-                    ], 400);
-                }
-            }
-
-            // ⏱️ 1 message / 30 seconds per IP
-            if (cache()->has('contact_us_ip_' . $request->ip())) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Please wait a moment before sending again.'
-                ], 429);
-            }
-            cache()->put('contact_us_ip_' . $request->ip(), true, now()->addSeconds(30));
-
-            // 📨 Prevent duplicate email submission for 2 minutes
-            if (cache()->has('contact_us_email_' . $request->email)) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Duplicate request detected. Please try again later.'
-                ], 429);
-            }
-            cache()->put('contact_us_email_' . $request->email, true, now()->addMinutes(2));
-
-            // ✅ Save and Send Emails
-            $contactu = $this->crudRepository->create($request->validated());
-
-            $template = DB::table('email_templates')->where('slug', 'contact_us_email_template')->value('body');
-            $subject = DB::table('email_templates')->where('slug', 'contact_us_email_template')->value('subject');
-            $emails = EmailTemplate::where('slug', 'contact_us_email_template')->select('bcc')->first();
-            $emails_bcc = explode(',', $emails?->bcc);
-            foreach ($emails_bcc as $email) {
-                Mail::to($email)->queue(new ContactUsMail($contactu));
-            }
-            Mail::to($contactu->email)->queue(new ContactUsRequestMail($template, $subject));
-
-            return JsonResponse::respondSuccess(trans(JsonResponse::MSG_ADDED_SUCCESSFULLY));
-
+            $content = $this->crudRepository->create($request->validated());
+            return new ContactUsResource($content);
         } catch (Exception $e) {
             return JsonResponse::respondError($e->getMessage());
         }
     }
-
-
-
 
     public function update(ContactUsRequest $request, ContactUs $contactu): \Illuminate\Http\JsonResponse
     {

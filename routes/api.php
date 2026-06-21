@@ -20,6 +20,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PageContactUsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PageSectionController;
 use App\Http\Controllers\PartnerController;
@@ -170,6 +171,18 @@ Route::apiResource('faq', FAQController::class);
 //////////////////////////////////////// faq ////////////////////////////////
 
 
+//////////////////////////////////////// PageContactUs ////////////////////////////////
+
+Route::post('/page-contact-us/index', [PageContactUsController::class, 'index']);
+Route::post('page-contact-us/restore', [PageContactUsController::class, 'restore']);
+Route::delete('page-contact-us/delete', [PageContactUsController::class, 'destroy']);
+Route::delete('page-contact-us/force-delete', [PageContactUsController::class, 'forceDelete']);
+Route::put('/page-contact-us/{id}/{column}', [PageContactUsController::class, 'toggle']);
+Route::apiResource('page-contact-us', PageContactUsController::class);
+
+
+//////////////////////////////////////// PageContactUs ////////////////////////////////
+
 
 
 //////////////////////////////////////// ContactUs ////////////////////////////////
@@ -180,8 +193,6 @@ Route::delete('contactus/force-delete', [ContactUsController::class, 'forceDelet
 Route::put('/contactus/{id}/{column}', [ContactUsController::class, 'toggle']);
 Route::apiResource('contactus', ContactUsController::class);
 Route::post('contact-us-public', [ContactUsController::class, 'store'])->middleware('throttle:3,1');
-
-Route::post('publicsss', [ContactUsController::class, 'aaaa']);
 
 //////////////////////////////////////// ContactUs ////////////////////////////////
 
