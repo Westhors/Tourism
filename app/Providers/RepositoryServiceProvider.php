@@ -16,6 +16,7 @@ use App\Interfaces\ExpoCompanyRepositoryInterface;
 use App\Interfaces\ExpoRepositoryInterface;
 use App\Interfaces\FaqRepositoryInterface;
 use App\Interfaces\guideLineRepositoryInterface;
+use App\Interfaces\JobRepositoryInterface;
 use App\Interfaces\LogoCompanyRepositoryInterface;
 use App\Interfaces\MenuItemRepositoryInterface;
 use App\Interfaces\MenuRepositoryInterface;
@@ -50,6 +51,7 @@ use App\Repositories\ExpoCompanyRepository;
 use App\Repositories\ExpoRepository;
 use App\Repositories\FaqRepository;
 use App\Repositories\guideLineRepository;
+use App\Repositories\JobRepository;
 use App\Repositories\LogoCompanyRepository;
 use App\Repositories\MenuItemRepository;
 use App\Repositories\MenuRepository;
@@ -88,7 +90,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CompanyRepositoryInterface::class, CompanyRepository::class);
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
-        $this->app->bind(CountryRepositoryInterface::class, CountryRepository::class);
+        $this->app->bind(JobRepositoryInterface::class, JobRepository::class);
         $this->app->bind(FaqRepositoryInterface::class, FaqRepository::class);
         $this->app->bind(AboutRepositoryInterface::class, AboutRepository::class);
         $this->app->bind(EventRepositoryInterface::class, EventRepository::class);
@@ -110,6 +112,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ExpoRepositoryInterface::class, ExpoRepository::class);
         $this->app->bind(ExpoCompanyRepositoryInterface::class, ExpoCompanyRepository::class);
         $this->app->bind(NewsletterRepositoryInterface::class, NewsletterRepository::class);
+        $this->app->bind(JobRepositoryInterface::class, JobRepository::class);
     }
 
     /**

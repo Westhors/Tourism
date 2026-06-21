@@ -14,6 +14,7 @@ use App\Http\Controllers\ExpoCompanyController;
 use App\Http\Controllers\ExpoController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\GuideLineController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\LogoCompanyController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MenuController;
@@ -195,6 +196,19 @@ Route::apiResource('contactus', ContactUsController::class);
 Route::post('contact-us-public', [ContactUsController::class, 'store'])->middleware('throttle:3,1');
 
 //////////////////////////////////////// ContactUs ////////////////////////////////
+
+
+
+//////////////////////////////////////// job ////////////////////////////////
+Route::post('/job/index', [JobController::class, 'index']);
+Route::post('job/restore', [JobController::class, 'restore']);
+Route::delete('job/delete', [JobController::class, 'destroy']);
+Route::delete('job/force-delete', [JobController::class, 'forceDelete']);
+Route::put('/job/{id}/{column}', [JobController::class, 'toggle']);
+Route::apiResource('job', JobController::class);
+Route::post('job-public', [JobController::class, 'store'])->middleware('throttle:3,1');
+
+//////////////////////////////////////// job ////////////////////////////////
 
 
 
