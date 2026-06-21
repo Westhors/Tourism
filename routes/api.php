@@ -15,6 +15,7 @@ use App\Http\Controllers\ExpoController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\GuideLineController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\KnewsLettersController;
 use App\Http\Controllers\LogoCompanyController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MenuController;
@@ -210,6 +211,15 @@ Route::post('job-public', [JobController::class, 'store'])->middleware('throttle
 
 //////////////////////////////////////// job ////////////////////////////////
 
+//////////////////////////////////////// KnewsLetters ////////////////////////////////
+Route::post('/knews-letters/index', [KnewsLettersController::class, 'index']);
+Route::post('knews-letters/restore', [KnewsLettersController::class, 'restore']);
+Route::delete('knews-letters/delete', [KnewsLettersController::class, 'destroy']);
+Route::delete('knews-letters/force-delete', [KnewsLettersController::class, 'forceDelete']);
+Route::put('/knews-letters/{id}/{column}', [KnewsLettersController::class, 'toggle']);
+Route::apiResource('knews-letters', KnewsLettersController::class);
+
+//////////////////////////////////////// KnewsLetters ////////////////////////////////
 
 
 
