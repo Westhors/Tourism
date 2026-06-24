@@ -17,10 +17,10 @@ class FaqResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name ?? '',
-            'slug' => $this->slug ?? '',
+            // 'slug' => $this->slug ?? '',
             'des' => $this->des ?? '',
             'active' => $this->active ?? '',
-            'position' => $this->position ?? '',
+            // 'position' => $this->position ?? '',
             'deleted' => isset($this->deleted_at),
             'deletedAt' => $this->deleted_at ? $this->deleted_at->format('Y-M-d H:i:s A') : null,
             'createdAt' => $this->created_at ? $this->created_at->format('Y-M-d H:i:s A') : null,
